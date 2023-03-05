@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "./Components/Form";
 import GearButton from "./Components/GearButton";
 import classNames from "classnames";
@@ -7,6 +7,15 @@ import "./index.css";
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = () => setIsDrawerOpen((current) => !current);
+
+  useEffect(() => {
+    const onEscape = (e: KeyboardEvent) =>
+      e.key === "Escape" ? setIsDrawerOpen(false) : "";
+
+    document.addEventListener("keydown", onEscape);
+
+    return document.removeEventListener("keydown", onEscape);
+  }, []);
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">
       <h1 className="text-center fs-3 mb-8">Pomodoro</h1>
@@ -24,7 +33,6 @@ function App() {
 
         <button
           disabled={isDrawerOpen}
-          // className="bg-[#602020] w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase"
           className={classNames({
             "w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase": true,
             "bg-[#602020] cursor-pointer": !isDrawerOpen,
