@@ -1,14 +1,17 @@
+import { useState } from "react";
 import Form from "./Components/Form";
 import GearButton from "./Components/GearButton";
 import "./index.css";
 
 function App() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const toggleDrawer = () => setIsDrawerOpen((current) => !current);
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">
       <h1 className="text-center fs-3 mb-8">Pomodoro</h1>
 
-      <GearButton />
-      {/* <Form /> */}
+      <GearButton toggleDrawer={toggleDrawer} />
+      <Form isDrawerOpen={isDrawerOpen} />
 
       <div className="w-[85%] h-3/5 sm:h-3/4 bg-gray-300/25 rounded-2xl mx-auto px-4 py-8 flex flex-col items-center gap-4">
         <p

@@ -3,8 +3,16 @@ import { ReactComponent as Gear } from "../../assets/img/gear.svg";
 import classNames from "classnames";
 import "./styles.css";
 
-const GearButton: React.FC = () => {
+type GearButtonProps = {
+  toggleDrawer: () => void;
+};
+const GearButton: React.FC<GearButtonProps> = ({ toggleDrawer }) => {
   const [rotate, setRotate] = useState(false);
+
+  const toggleRotate = () => {
+    toggleDrawer();
+    setRotate((current) => !current);
+  };
 
   return (
     <>
@@ -15,7 +23,7 @@ const GearButton: React.FC = () => {
           unrotate: !rotate,
         })}
         id="gear"
-        onClick={() => setRotate((current) => !current)}
+        onClick={toggleRotate}
       />
     </>
   );
