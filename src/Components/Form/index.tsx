@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 import classNames from "classnames";
+import FormInput from "../FormInput";
 
 type FormProps = {
   isDrawerOpen: boolean;
 };
 const Form: React.FC<FormProps> = ({ isDrawerOpen }) => {
   const [allTimes, setAllTimes] = useState({
-    focusTime: 0,
-    shortRest: 0,
-    longRest: 0,
+    focusTime: null,
+    shortRest: null,
+    longRest: null,
   });
 
   const handlingTime = ({ target: { value, name } }: any) => {
+    if (!/[0-9]/.test(value.at(-1)) && value.at(-1) !== undefined) return;
     setAllTimes({ ...allTimes, [name]: value });
   };
 
@@ -24,53 +26,23 @@ const Form: React.FC<FormProps> = ({ isDrawerOpen }) => {
         "translate-x-full": !isDrawerOpen,
       })}
     >
-      <div className="text-center w-3/4 mx-auto">
-        <label htmlFor="focus" className="font-bold fs-1 block mb-2">
-          Tempo de foco
-        </label>
-        <input
-          id="focus"
-          className="text-zinc-700 rounded-full w-1/2 max-w-xs font-semibold text-center py-0.5 fs-1"
-          type="text"
-          // inputmode="numeric"
-          pattern="[0-9]*"
-          name="focusTime"
-          value={allTimes.focusTime}
-          onChange={handlingTime}
-        />
-      </div>
+      <FormInput
+        label="Tempo de foco"
+        time={allTimes.focusTime}
+        handlingTime={handlingTime}
+      />
 
-      <div className="text-center w-3/4 mx-auto">
-        <label htmlFor="short-break" className="font-bold fs-1 block mb-2">
-          Tempo de descanso curto
-        </label>
-        <input
-          id="short-break"
-          className="text-zinc-700 rounded-full w-1/2 max-w-xs font-semibold text-center py-0.5 fs-1"
-          type="text"
-          // inputmode="numeric"
-          pattern="[0-9]*"
-          name="shortRest"
-          value={allTimes.shortRest}
-          onChange={handlingTime}
-        />
-      </div>
+      <FormInput
+        label="Tempo de descanso curto"
+        time={allTimes.shortRest}
+        handlingTime={handlingTime}
+      />
 
-      <div className="text-center w-3/4 mx-auto">
-        <label htmlFor="long-break" className="font-bold fs-1 block mb-2">
-          Tempo de descanso longo
-        </label>
-        <input
-          id="long-break"
-          className="text-zinc-700 rounded-full w-1/2 max-w-xs font-semibold text-center py-0.5 fs-1"
-          type="text"
-          // inputmode="numeric"
-          pattern="[0-9]*"
-          name="longRest"
-          value={allTimes.longRest}
-          onChange={handlingTime}
-        />
-      </div>
+      <FormInput
+        label="Tempo de descanso longo"
+        time={allTimes.longRest}
+        handlingTime={handlingTime}
+      />
 
       <button
         id="save-button"
