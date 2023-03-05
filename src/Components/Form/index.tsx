@@ -28,18 +28,21 @@ const Form: React.FC<FormProps> = ({ isDrawerOpen }) => {
     >
       <FormInput
         label="Tempo de foco"
+        name="focusTime"
         time={allTimes.focusTime}
         handlingTime={handlingTime}
       />
 
       <FormInput
         label="Tempo de descanso curto"
+        name="shortRest"
         time={allTimes.shortRest}
         handlingTime={handlingTime}
       />
 
       <FormInput
         label="Tempo de descanso longo"
+        name="longRest"
         time={allTimes.longRest}
         handlingTime={handlingTime}
       />
