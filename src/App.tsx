@@ -9,12 +9,13 @@ function App() {
   const toggleDrawer = () => setIsDrawerOpen((current) => !current);
 
   useEffect(() => {
-    const onEscape = (e: KeyboardEvent) =>
+    const onEscape = (e: any) => {
       e.key === 'Escape' ? setIsDrawerOpen(false) : '';
+    };
 
-    document.addEventListener('keydown', onEscape);
+    document.addEventListener('keydown', (e) => onEscape(e));
 
-    return document.removeEventListener('keydown', onEscape);
+    return document.removeEventListener('keydown', (e) => onEscape(e));
   }, []);
 
   return (
