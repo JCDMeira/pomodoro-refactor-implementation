@@ -65,37 +65,3 @@ label::after {
     background-color: hsl(0, 50%, 25%);
   }
 }
-
-.rotate {
-  animation-name: rotate;
-  animation-duration: 2s;
-  animation-timing-function: cubic-bezier(0.8, 0.95, 0.15, 1.5);
-  animation-direction: normal;
-  animation-fill-mode: forwards;
-  transform-origin: center;
-}
-
-@keyframes rotate {
-  to {
-    transform: rotate(1turn);
-  }
-}
-
-.unrotate {
-  animation-name: unrotate;
-  animation-duration: 2s;
-  animation-timing-function: cubic-bezier(0.8, 0.95, 0.15, 1.5);
-  animation-direction: normal;
-  animation-fill-mode: forwards;
-  transform-origin: center;
-}
-
-@keyframes unrotate {
-  to {
-    transform: rotate(-1turn);
-  }
-}
-
-.disabled {
-  cursor: not-allowed;
-}
