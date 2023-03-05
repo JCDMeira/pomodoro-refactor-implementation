@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Form from "./Components/Form";
 import GearButton from "./Components/GearButton";
+import classNames from "classnames";
 import "./index.css";
 
 function App() {
@@ -22,7 +23,13 @@ function App() {
         </p>
 
         <button
-          className="bg-[#602020] w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase"
+          disabled={isDrawerOpen}
+          // className="bg-[#602020] w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase"
+          className={classNames({
+            "w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase": true,
+            "bg-[#602020] cursor-pointer": !isDrawerOpen,
+            "bg-[#ccc] cursor-not-allowed": isDrawerOpen,
+          })}
           id="control-button"
         >
           Start
