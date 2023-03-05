@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import classNames from 'classnames';
 import FormInput from '../FormInput';
 
@@ -17,6 +17,11 @@ const Form: React.FC<FormProps> = ({ isDrawerOpen }) => {
     setAllTimes({ ...allTimes, [name]: value });
   };
 
+  const handleSubimit = (e: FormEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
   return (
     <form
       id="sidebar"
@@ -25,6 +30,7 @@ const Form: React.FC<FormProps> = ({ isDrawerOpen }) => {
           true,
         'translate-x-full': !isDrawerOpen,
       })}
+      onSubmit={handleSubimit}
     >
       <FormInput
         label="Tempo de foco"
@@ -48,6 +54,7 @@ const Form: React.FC<FormProps> = ({ isDrawerOpen }) => {
       />
 
       <button
+        type="submit"
         id="save-button"
         className="bg-white text-zinc-700 rounded-full w-1/2 max-w-md py-2 font-semibold text-center fs-1 mx-auto"
       >
