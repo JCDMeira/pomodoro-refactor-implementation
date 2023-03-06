@@ -1,25 +1,15 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent } from 'react';
 import classNames from 'classnames';
 import FormInput from '../FormInput';
 import { setPomodoroOnLocalStorage } from '../../helpers';
+import { FormProps } from '../../types';
 
-type FormProps = {
-  isDrawerOpen: boolean;
-  toggleDrawer: () => void;
-};
-
-const Form: React.FC<FormProps> = ({ isDrawerOpen, toggleDrawer }) => {
-  const [allTimes, setAllTimes] = useState({
-    focusTime: null,
-    shortRest: null,
-    longRest: null,
-  });
-
-  const handlingTime = ({ target: { value, name } }: any) => {
-    if (!/[0-9]/.test(value.at(-1)) && value.at(-1) !== undefined) return;
-    setAllTimes({ ...allTimes, [name]: value });
-  };
-
+const Form: React.FC<FormProps> = ({
+  isDrawerOpen,
+  toggleDrawer,
+  allTimes,
+  handlingTime,
+}) => {
   const handleSubimit = (e: FormEvent) => {
     e.preventDefault();
     e.stopPropagation();

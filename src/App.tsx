@@ -3,10 +3,22 @@ import Form from './Components/Form';
 import GearButton from './Components/GearButton';
 import classNames from 'classnames';
 import './index.css';
+import { allTimesType } from './types';
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = () => setIsDrawerOpen((current) => !current);
+
+  const [allTimes, setAllTimes] = useState<allTimesType>({
+    focusTime: null,
+    shortRest: null,
+    longRest: null,
+  });
+
+  const handlingTime = ({ target: { value, name } }: any) => {
+    if (!/[0-9]/.test(value.at(-1)) && value.at(-1) !== undefined) return;
+    setAllTimes({ ...allTimes, [name]: value });
+  };
 
   useEffect(() => {
     const onEscape = (e: any) => {
@@ -23,7 +35,12 @@ function App() {
       <h1 className="text-center fs-3 mb-8">Pomodoro</h1>
 
       <GearButton toggleDrawer={toggleDrawer} />
-      <Form isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+      <Form
+        isDrawerOpen={isDrawerOpen}
+        toggleDrawer={toggleDrawer}
+        allTimes={allTimes}
+        handlingTime={handlingTime}
+      />
 
       <div className="w-[85%] h-3/5 sm:h-3/4 bg-gray-300/25 rounded-2xl mx-auto px-4 py-8 flex flex-col items-center gap-4">
         <p
