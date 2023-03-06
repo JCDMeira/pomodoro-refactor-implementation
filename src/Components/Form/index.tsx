@@ -31,6 +31,9 @@ const Form: React.FC<FormProps> = ({ isDrawerOpen, toggleDrawer }) => {
     });
   };
 
+  const isDisabled =
+    !allTimes.focusTime || !allTimes.shortRest || !allTimes.longRest;
+
   return (
     <form
       id="sidebar"
@@ -65,7 +68,13 @@ const Form: React.FC<FormProps> = ({ isDrawerOpen, toggleDrawer }) => {
       <button
         type="submit"
         id="save-button"
-        className="bg-white text-zinc-700 rounded-full w-1/2 max-w-md py-2 font-semibold text-center fs-1 mx-auto"
+        disabled={isDisabled}
+        className={classNames({
+          'rounded-full w-1/2 max-w-md py-2 font-semibold text-center fs-1 mx-auto':
+            true,
+          'bg-white text-zinc-700 cursor-pointer': !isDisabled,
+          'bg-[#ccc] cursor-not-allowed text-[#999]': isDisabled,
+        })}
       >
         Salvar
       </button>
