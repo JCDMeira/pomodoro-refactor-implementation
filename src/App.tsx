@@ -23,7 +23,7 @@ function App() {
       <h1 className="text-center fs-3 mb-8">Pomodoro</h1>
 
       <GearButton toggleDrawer={toggleDrawer} />
-      <Form isDrawerOpen={isDrawerOpen} />
+      <Form isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
 
       <div className="w-[85%] h-3/5 sm:h-3/4 bg-gray-300/25 rounded-2xl mx-auto px-4 py-8 flex flex-col items-center gap-4">
         <p
