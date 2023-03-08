@@ -1,24 +1,37 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import classNames from 'classnames';
 import FormInput from '../FormInput';
 import { setPomodoroOnLocalStorage } from '../../helpers';
-import { FormProps } from '../../types';
+import { allTimesType, FormProps } from '../../types';
+
+const formatToSave = (num: number | null) => (num ? `${num * 60}` : '');
 
 const Form: React.FC<FormProps> = ({
   isDrawerOpen,
   toggleDrawer,
-  allTimes,
-  handlingTime,
+  setInitialTimer,
 }) => {
+  const [allTimes, setAllTimes] = useState<allTimesType>({
+    focusTime: null,
+    shortRest: null,
+    longRest: null,
+  });
+
+  const handlingTime = ({ target: { value, name } }: any) => {
+    if (!/[0-9]/.test(value.at(-1)) && value.at(-1) !== undefined) return;
+    setAllTimes({ ...allTimes, [name]: value });
+  };
+
   const handleSubimit = (e: FormEvent) => {
     e.preventDefault();
     e.stopPropagation();
     toggleDrawer();
     setPomodoroOnLocalStorage({
-      focusTime: `${allTimes.focusTime}`,
-      shortRest: `${allTimes.shortRest}`,
-      longRest: `${allTimes.longRest}`,
+      focusTime: formatToSave(allTimes.focusTime),
+      shortRest: formatToSave(allTimes.shortRest),
+      longRest: formatToSave(allTimes.longRest),
     });
+    setInitialTimer();
   };
 
   const isDisabled =
