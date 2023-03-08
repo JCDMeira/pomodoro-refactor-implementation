@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { ReactComponent as Gear } from "../../assets/img/gear.svg";
-import classNames from "classnames";
-import "./styles.css";
+import React, { useState } from 'react';
+import { ReactComponent as Gear } from '../../assets/img/gear.svg';
+import classNames from 'classnames';
+import './styles.css';
 
 type GearButtonProps = {
   toggleDrawer: () => void;
@@ -18,7 +18,7 @@ const GearButton: React.FC<GearButtonProps> = ({ toggleDrawer }) => {
     <>
       <Gear
         className={classNames({
-          "absolute top-4 right-4 cursor-pointer z-[2]": true,
+          'absolute top-4 right-4 cursor-pointer z-[2]': true,
           rotate: rotate,
           unrotate: !rotate,
         })}

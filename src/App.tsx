@@ -1,10 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Form from './Components/Form';
 import GearButton from './Components/GearButton';
 import classNames from 'classnames';
 import './index.css';
 import { allTimesType } from './types';
-import { Testando } from './estate';
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -31,60 +30,9 @@ function App() {
     return document.removeEventListener('keydown', (e) => onEscape(e));
   }, []);
 
-  //@ teste do padrão estate
-  const [texto, setTexto] = useState('');
-  const setTitle = (title: string) => setTexto(title);
-  const teste = useMemo(() => new Testando(setTitle), []);
-  //@ teste do padrão estate
-
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">
       <h1 className="text-center fs-3 mb-8">Pomodoro</h1>
-
-      {/* //@ teste do padrão estate */}
-      <h1 className="text-center fs-3 mb-8">{`${texto}`}</h1>
-      <button
-        className={classNames({
-          'w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase': true,
-          'bg-[#602020] cursor-pointer': !isDrawerOpen,
-          'bg-[#ccc] cursor-not-allowed': isDrawerOpen,
-        })}
-        onClick={() => teste.retornaTexto()}
-      >
-        testar
-      </button>
-
-      <button
-        className={classNames({
-          'w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase': true,
-          'bg-[#602020] cursor-pointer': !isDrawerOpen,
-          'bg-[#ccc] cursor-not-allowed': isDrawerOpen,
-        })}
-        onClick={() => teste.setCurrentState('teste1')}
-      >
-        teste1
-      </button>
-      <button
-        className={classNames({
-          'w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase': true,
-          'bg-[#602020] cursor-pointer': !isDrawerOpen,
-          'bg-[#ccc] cursor-not-allowed': isDrawerOpen,
-        })}
-        onClick={() => teste.setCurrentState('teste2')}
-      >
-        teste2
-      </button>
-      <button
-        className={classNames({
-          'w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase': true,
-          'bg-[#602020] cursor-pointer': !isDrawerOpen,
-          'bg-[#ccc] cursor-not-allowed': isDrawerOpen,
-        })}
-        onClick={() => teste.setCurrentState('teste3')}
-      >
-        teste3
-      </button>
-      {/* //@ teste do padrão estate */}
 
       <GearButton toggleDrawer={toggleDrawer} />
       <Form
