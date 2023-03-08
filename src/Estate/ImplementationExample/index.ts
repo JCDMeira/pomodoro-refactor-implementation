@@ -11,6 +11,9 @@ export class Teste2 implements ITeste {
 export class Teste3 implements ITeste {
   retornaTexto = () => `Teste3`;
 }
+export class Teste4 implements ITeste {
+  retornaTexto = () => `Teste4`;
+}
 
 /*
   @ A classe principal do state deverá instanciar sub-classes que respeitam a mesma assinatura.
@@ -22,33 +25,24 @@ export class Teste3 implements ITeste {
 */
 
 export class TestState {
-  private teste1;
-  private teste2;
-  private teste3;
-
   private currentState;
   private selector;
-  private setTitle;
 
-  constructor(setTitle: (title: string) => void) {
-    this.teste1 = new Teste1();
-    this.teste2 = new Teste2();
-    this.teste3 = new Teste3();
-    this.currentState = this.teste1;
-    this.setTitle = setTitle;
+  private updateView;
+
+  constructor(updateView: (title: string) => void) {
+    this.updateView = updateView;
     this.selector = {
-      teste1: this.teste1,
-      teste2: this.teste2,
-      teste3: this.teste3,
+      teste1: new Teste1(),
+      teste2: new Teste2(),
+      teste3: new Teste3(),
+      teste4: new Teste4(),
     };
+    this.currentState = this.selector.teste1;
   }
-  retornaTexto = () => {
-    console.log(this.currentState.retornaTexto());
-    return this.currentState.retornaTexto();
-  };
 
   setCurrentState = (state: keyof typeof this.selector) => {
     this.currentState = this.selector[state];
-    this.setTitle(this.currentState.retornaTexto());
+    this.updateView(this.currentState.retornaTexto());
   };
 }
