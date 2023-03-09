@@ -5,19 +5,17 @@ import {
   setPomodoroOnLocalStorage,
   getDefaultTimeObject,
   setTimeObject,
+  onChangeOnlyForNumbers,
 } from '../../helpers';
 import { allTimesType, FormProps } from '../../types';
 
 const Form: React.FC<FormProps> = (props) => {
   const { isDrawerOpen, toggleDrawer, setInitialTimer } = props;
+
   const [allTimes, setAllTimes] = useState<allTimesType>(
     getDefaultTimeObject(),
   );
-
-  const handlingTime = ({ target: { value, name } }: any) => {
-    if (!/[0-9]/.test(value.at(-1)) && value.at(-1) !== undefined) return;
-    setAllTimes({ ...allTimes, [name]: value });
-  };
+  const handlingTime = onChangeOnlyForNumbers(setAllTimes, allTimes);
 
   const handleSubimit = (e: FormEvent) => {
     e.preventDefault();
