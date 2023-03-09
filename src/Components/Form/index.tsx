@@ -1,21 +1,18 @@
 import React, { FormEvent, useState } from 'react';
 import classNames from 'classnames';
 import FormInput from '../FormInput';
-import { setPomodoroOnLocalStorage } from '../../helpers';
+import {
+  setPomodoroOnLocalStorage,
+  getDefaultTimeObject,
+  setTimeObject,
+} from '../../helpers';
 import { allTimesType, FormProps } from '../../types';
 
-const formatToSave = (num: number | null) => (num ? `${num * 60}` : '');
-
-const Form: React.FC<FormProps> = ({
-  isDrawerOpen,
-  toggleDrawer,
-  setInitialTimer,
-}) => {
-  const [allTimes, setAllTimes] = useState<allTimesType>({
-    focusTime: null,
-    shortRest: null,
-    longRest: null,
-  });
+const Form: React.FC<FormProps> = (props) => {
+  const { isDrawerOpen, toggleDrawer, setInitialTimer } = props;
+  const [allTimes, setAllTimes] = useState<allTimesType>(
+    getDefaultTimeObject(),
+  );
 
   const handlingTime = ({ target: { value, name } }: any) => {
     if (!/[0-9]/.test(value.at(-1)) && value.at(-1) !== undefined) return;
@@ -26,11 +23,7 @@ const Form: React.FC<FormProps> = ({
     e.preventDefault();
     e.stopPropagation();
     toggleDrawer();
-    setPomodoroOnLocalStorage({
-      focusTime: formatToSave(allTimes.focusTime),
-      shortRest: formatToSave(allTimes.shortRest),
-      longRest: formatToSave(allTimes.longRest),
-    });
+    setPomodoroOnLocalStorage(setTimeObject(allTimes));
     setInitialTimer();
   };
 
