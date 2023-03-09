@@ -1,19 +1,18 @@
-import { IPomodoroEstates } from './IPomodoroEstates';
+import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
 export class PauseState implements IPomodoroEstates {
-  stage: string;
-  noticeToUser: string;
-  buttonText: string;
-  messageAfterCountdown: string;
+  viewMessages: viewMessages;
   action: () => void;
 
   constructor() {
     this.action = () => {
       console.log('teste');
     };
-    this.buttonText = '';
-    this.noticeToUser = '';
-    this.stage = '';
-    this.messageAfterCountdown = '';
+    this.viewMessages = {
+      buttonText: '',
+      noticeToUser: '',
+      stage: '',
+      messageAfterCountdown: '',
+    };
   }
 }
