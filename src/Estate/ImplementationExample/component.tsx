@@ -10,7 +10,7 @@ const ImplementationExample: React.FC = () => {
       <h1 className="text-center fs-3 mb-8">{`${texto}`}</h1>
       <button
         className="w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase bg-[#602020] cursor-pointer"
-        onClick={() => teste.retornaTexto()}
+        onClick={() => teste.currentState.retornaTexto()}
       >
         testar
       </button>

@@ -25,7 +25,7 @@ export class Teste4 implements ITeste {
 */
 
 export class TestState {
-  private currentState;
+  currentState;
   private selector;
 
   private updateView;
