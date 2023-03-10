@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import Form from './Components/Form';
 import GearButton from './Components/GearButton';
 import classNames from 'classnames';
@@ -6,22 +6,12 @@ import './index.css';
 import { viewMessages } from './Estate/PomodoroEstates/IPomodoroEstates';
 import { PomodoroStates } from './Estate/PomodoroEstates';
 import { formatToApresent, getLocalStorageItem } from './helpers';
+import { useDrawer } from './hooks/useDrawer.hook';
 
 const initialTimer = Number(getLocalStorageItem('focusTime')) || 0;
 
 function App() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const toggleDrawer = () => setIsDrawerOpen((current) => !current);
-
-  useEffect(() => {
-    const onEscape = (e: any) => {
-      e.key === 'Escape' ? setIsDrawerOpen(false) : '';
-    };
-
-    document.addEventListener('keydown', (e) => onEscape(e));
-
-    return document.removeEventListener('keydown', (e) => onEscape(e));
-  }, []);
+  const { isDrawerOpen, toggleDrawer } = useDrawer();
 
   const [currentTimer, setCurretTimer] = useState<number>(initialTimer);
   const setInitialTimer = () =>
