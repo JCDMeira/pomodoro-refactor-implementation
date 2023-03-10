@@ -6,10 +6,11 @@ export class StartState implements IPomodoroEstates {
 
   constructor() {
     this.viewMessages = {
-      buttonText: '',
-      noticeToUser: '',
-      stage: '',
-      messageAfterCountdown: '',
+      buttonText: 'Start',
+      noticeToUser: 'Focus',
+      stage: 'Pause',
+      messageAfterCountdown: `Time's up. Rest a little`,
+      buttonTextAfterCountdown: 'Rest',
     };
     this.action = () => {
       console.log('teste');

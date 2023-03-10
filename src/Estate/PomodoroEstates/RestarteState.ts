@@ -13,6 +13,7 @@ export class RestarteState implements IPomodoroEstates {
       noticeToUser: '',
       stage: '',
       messageAfterCountdown: '',
+      buttonTextAfterCountdown: '',
     };
   }
 }

@@ -13,6 +13,7 @@ export class LongRestState implements IPomodoroEstates {
       noticeToUser: '',
       stage: '',
       messageAfterCountdown: '',
+      buttonTextAfterCountdown: '',
     };
   }
 }

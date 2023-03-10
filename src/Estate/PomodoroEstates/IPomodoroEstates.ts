@@ -8,4 +8,5 @@ export type viewMessages = {
   noticeToUser: string;
   buttonText: string;
   messageAfterCountdown: string;
+  buttonTextAfterCountdown: string;
 };

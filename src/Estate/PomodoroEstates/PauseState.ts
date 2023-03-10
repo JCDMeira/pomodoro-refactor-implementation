@@ -13,6 +13,7 @@ export class PauseState implements IPomodoroEstates {
       noticeToUser: '',
       stage: '',
       messageAfterCountdown: '',
+      buttonTextAfterCountdown: '',
     };
   }
 }
