@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Form from './Components/Form';
 import GearButton from './Components/GearButton';
 import classNames from 'classnames';
 import './index.css';
+import { viewMessages } from './Estate/PomodoroEstates/IPomodoroEstates';
+import { PomodoroStates } from './Estate/PomodoroEstates';
+import { formatToApresent, getLocalStorageItem } from './helpers';
 
-export const formatToApresent = (num: number) =>
-  num < 10 ? '0' + num : `${num}`;
+const initialTimer = Number(getLocalStorageItem('focusTime')) || 0;
 
 function App() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -21,13 +23,28 @@ function App() {
     return document.removeEventListener('keydown', (e) => onEscape(e));
   }, []);
 
-  const initialTimer = Number(localStorage.getItem('focusTime')) || 0;
   const [currentTimer, setCurretTimer] = useState<number>(initialTimer);
   const setInitialTimer = () =>
-    setCurretTimer(Number(localStorage.getItem('focusTime')));
+    setCurretTimer(Number(getLocalStorageItem('focusTime')));
 
   const seconds = currentTimer % 60;
   const minutes = Math.trunc(currentTimer / 60);
+
+  const [viewMessages, setViewMessages] = useState<viewMessages>({
+    buttonText: 'Start',
+    noticeToUser: 'Focus',
+    stage: 'Pause',
+    messageAfterCountdown: `Time's up. Rest a little`,
+    buttonTextAfterCountdown: 'Rest',
+  });
+  const updateViewMessages = (messages: viewMessages) =>
+    setViewMessages(messages);
+
+  const pomodoroStates = useMemo(
+    () => new PomodoroStates(updateViewMessages),
+    [],
+  );
+  console.log(pomodoroStates);
 
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">
@@ -57,11 +74,11 @@ function App() {
           })}
           id="control-button"
         >
-          Start
+          {viewMessages?.buttonText}
         </button>
 
         <p className="whitespace-pre-wrap fs-1 font-semibold" id="notice-user">
-          {' '}
+          {viewMessages?.noticeToUser}
         </p>
 
         <p className="cycles fs-1 font-light" id="cycles">
