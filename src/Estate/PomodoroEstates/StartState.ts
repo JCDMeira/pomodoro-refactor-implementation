@@ -2,18 +2,16 @@ import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
 export class StartState implements IPomodoroEstates {
   viewMessages: viewMessages;
-  action: () => void;
+  action: () => 'shortRest' | 'start';
 
   constructor() {
     this.viewMessages = {
       buttonText: 'Start',
       noticeToUser: 'Focus',
-      stage: 'Pause',
+      nextStage: 'Pause',
       messageAfterCountdown: `Time's up. Rest a little`,
-      buttonTextAfterCountdown: 'Rest',
+      buttonTextAfterCountdown: 'shortRest',
     };
-    this.action = () => {
-      console.log('teste');
-    };
+    this.action = () => 'shortRest';
   }
 }

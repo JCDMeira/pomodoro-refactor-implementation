@@ -1,17 +1,15 @@
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
-export class LongRestState implements IPomodoroEstates {
+export class LongRestState {
   viewMessages: viewMessages;
-  action: () => void;
+  action: () => string;
 
   constructor() {
-    this.action = () => {
-      console.log('teste');
-    };
+    this.action = () => 'a';
     this.viewMessages = {
       buttonText: '',
       noticeToUser: '',
-      stage: '',
+      nextStage: '',
       messageAfterCountdown: '',
       buttonTextAfterCountdown: '',
     };

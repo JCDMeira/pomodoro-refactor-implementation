@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Form from './Components/Form';
 import GearButton from './Components/GearButton';
 import classNames from 'classnames';
@@ -16,23 +16,45 @@ function App() {
   const [currentTimer, setCurretTimer] = useState<number>(initialTimer);
   const setInitialTimer = () =>
     setCurretTimer(Number(getLocalStorageItem('focusTime')));
+
+  const setNewStageTimer = (key: 'focusTime' | 'shortRest') =>
+    setCurretTimer(Number(getLocalStorageItem(key)));
+
   const seconds = currentTimer % 60;
   const minutes = Math.trunc(currentTimer / 60);
 
   const [viewMessages, setViewMessages] = useState<viewMessages>({
     buttonText: 'Start',
     noticeToUser: 'Focus',
-    stage: 'Pause',
+    nextStage: 'Pause',
     messageAfterCountdown: `Time's up. Rest a little`,
-    buttonTextAfterCountdown: 'Rest',
+    buttonTextAfterCountdown: 'shortRest',
   });
   const updateViewMessages = (messages: viewMessages) =>
     setViewMessages(messages);
+
+  useEffect(() => {
+    if (viewMessages.buttonText === 'shortRest')
+      setNewStageTimer(viewMessages.buttonText);
+  }, [viewMessages.buttonText]);
 
   const pomodoroStates = useMemo(
     () => new PomodoroStates(updateViewMessages),
     [],
   );
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurretTimer((current) => current - 1);
+    }, 1000);
+
+    if (currentTimer === 0) {
+      clearInterval(timer);
+      pomodoroStates.nextState();
+    }
+
+    return () => clearInterval(timer);
+  }, [currentTimer, pomodoroStates]);
 
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">

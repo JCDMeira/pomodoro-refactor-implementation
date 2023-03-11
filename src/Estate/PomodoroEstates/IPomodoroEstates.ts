@@ -1,10 +1,10 @@
 export interface IPomodoroEstates {
   viewMessages: viewMessages;
-  action: () => void;
+  action: () => 'start' | 'shortRest';
 }
 
 export type viewMessages = {
-  stage: string;
+  nextStage: string;
   noticeToUser: string;
   buttonText: string;
   messageAfterCountdown: string;

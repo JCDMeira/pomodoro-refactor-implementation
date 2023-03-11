@@ -14,13 +14,13 @@ export class PomodoroStates {
   constructor(updateView: (props: viewMessages) => void) {
     this.updateView = updateView;
     this.selector = {
-      Start: new StartState(),
-      ShortRest: new ShortRestState(),
-      LongRest: new LongRestState(),
-      Pause: new PauseState(),
-      Restart: new RestarteState(),
+      start: new StartState(),
+      shortRest: new ShortRestState(),
+      // longRest: new LongRestState(),
+      // pause: new PauseState(),
+      // restart: new RestarteState(),
     };
-    this.currentState = this.selector.Start;
+    this.currentState = this.selector.start;
   }
 
   setCurrentState = (state: keyof typeof this.selector) => {
@@ -28,7 +28,7 @@ export class PomodoroStates {
     this.updateView(this.currentState.viewMessages);
   };
 
-  // nextState = () => {
-
-  // };
+  nextState = () => {
+    this.currentState = this.selector[this.currentState.action()];
+  };
 }

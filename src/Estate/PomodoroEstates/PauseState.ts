@@ -1,6 +1,6 @@
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
-export class PauseState implements IPomodoroEstates {
+export class PauseState {
   viewMessages: viewMessages;
   action: () => void;
 
@@ -11,7 +11,7 @@ export class PauseState implements IPomodoroEstates {
     this.viewMessages = {
       buttonText: '',
       noticeToUser: '',
-      stage: '',
+      nextStage: '',
       messageAfterCountdown: '',
       buttonTextAfterCountdown: '',
     };
