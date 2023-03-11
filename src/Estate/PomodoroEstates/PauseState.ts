@@ -1,6 +1,6 @@
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
-export class PauseState {
+export class PauseState implements IPomodoroEstates {
   viewMessages: viewMessages;
   action: () => void;
 
@@ -13,8 +13,8 @@ export class PauseState {
       buttonTextAfterCount: 'Restart',
       messageOnCountdown: 'Paused',
       messageAfterCountdown: `Paused`,
-      nextStageOnCount: 'Restart',
-      nextStageAfterCount: 'Restart',
+      nextStageOnCount: 'restart',
+      nextStageAfterCount: 'restart',
     };
   }
 }

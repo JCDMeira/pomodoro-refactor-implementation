@@ -17,15 +17,12 @@ function App() {
   const setInitialTimer = () =>
     setCurretTimer(Number(getLocalStorageItem('focusTime')));
 
-  const seconds = currentTimer % 60;
-  const minutes = Math.trunc(currentTimer / 60);
-
   const [viewMessages, setViewMessages] = useState<viewMessages>({
     buttonTextBeforeCount: 'Start',
     buttonTextAfterCount: 'Pause',
     messageOnCountdown: 'Focus',
     messageAfterCountdown: `Time's up. Rest a little`,
-    nextStageOnCount: 'Pause',
+    nextStageOnCount: 'pause',
     nextStageAfterCount: 'shortRest',
   });
   const updateViewMessages = (messages: viewMessages) =>
@@ -36,18 +33,17 @@ function App() {
     [],
   );
 
-  useEffect(() => {
+  const playTimer = () => {
     const timer = setInterval(() => {
-      setCurretTimer((current) => current - 1);
+      setCurretTimer((current) => {
+        if (current === 0) {
+          clearInterval(timer);
+          return 0;
+        }
+        return current - 1;
+      });
     }, 1000);
-
-    if (currentTimer === 0) {
-      clearInterval(timer);
-      pomodoroStates.nextState();
-    }
-
-    return () => clearInterval(timer);
-  }, [currentTimer, pomodoroStates]);
+  };
 
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">
@@ -65,7 +61,7 @@ function App() {
           className="fs-4 grow flex justify-center items-center opacity-90"
           id="timer"
         >
-          {`${formatToApresent(minutes)}:${formatToApresent(seconds)}`}
+          {`${formatToApresent(currentTimer)}`}
         </p>
 
         <button
@@ -76,6 +72,7 @@ function App() {
             'bg-[#ccc] cursor-not-allowed': isDrawerOpen,
           })}
           id="control-button"
+          onClick={playTimer}
         >
           {viewMessages.buttonTextBeforeCount}
         </button>

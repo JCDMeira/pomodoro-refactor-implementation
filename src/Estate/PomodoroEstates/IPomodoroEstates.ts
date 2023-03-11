@@ -1,6 +1,6 @@
 export interface IPomodoroEstates {
   viewMessages: viewMessages;
-  action: () => 'start' | 'shortRest';
+  action: () => void;
 }
 
 export type viewMessages = {

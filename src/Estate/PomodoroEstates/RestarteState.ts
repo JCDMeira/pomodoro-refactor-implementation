@@ -1,6 +1,6 @@
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
-export class RestarteState {
+export class RestarteState implements IPomodoroEstates {
   viewMessages: viewMessages;
   action: () => void;
 
@@ -13,7 +13,7 @@ export class RestarteState {
       buttonTextAfterCount: 'Restart',
       messageOnCountdown: 'Focus',
       messageAfterCountdown: `Time's up. Rest a little`,
-      nextStageOnCount: 'Pause',
+      nextStageOnCount: 'pause',
       nextStageAfterCount: 'shortRest',
     };
   }

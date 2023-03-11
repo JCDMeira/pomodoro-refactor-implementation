@@ -16,9 +16,9 @@ export class PomodoroStates {
     this.selector = {
       start: new StartState(),
       shortRest: new ShortRestState(),
-      // longRest: new LongRestState(),
-      // pause: new PauseState(),
-      // restart: new RestarteState(),
+      longRest: new LongRestState(),
+      pause: new PauseState(),
+      restart: new RestarteState(),
     };
     this.currentState = this.selector.start;
   }
@@ -26,9 +26,5 @@ export class PomodoroStates {
   setCurrentState = (state: keyof typeof this.selector) => {
     this.currentState = this.selector[state];
     this.updateView(this.currentState.viewMessages);
-  };
-
-  nextState = () => {
-    this.currentState = this.selector[this.currentState.action()];
   };
 }

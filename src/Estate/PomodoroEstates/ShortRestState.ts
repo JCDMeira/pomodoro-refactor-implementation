@@ -1,7 +1,7 @@
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
 export class ShortRestState implements IPomodoroEstates {
-  action: () => 'shortRest' | 'start';
+  action: () => void;
   viewMessages: viewMessages;
 
   constructor() {
@@ -10,9 +10,11 @@ export class ShortRestState implements IPomodoroEstates {
       buttonTextAfterCount: 'Skip rest',
       messageOnCountdown: 'Relax a bit',
       messageAfterCountdown: 'Time to work',
-      nextStageOnCount: 'Start',
-      nextStageAfterCount: 'Start',
+      nextStageOnCount: 'start',
+      nextStageAfterCount: 'start',
     };
-    this.action = () => 'start';
+    this.action = () => {
+      console.log('teste');
+    };
   }
 }

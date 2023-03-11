@@ -1,18 +1,20 @@
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
-export class LongRestState {
+export class LongRestState implements IPomodoroEstates {
   viewMessages: viewMessages;
-  action: () => string;
+  action: () => void;
 
   constructor() {
-    this.action = () => 'a';
+    this.action = () => {
+      console.log('teste');
+    };
     this.viewMessages = {
       buttonTextBeforeCount: 'Rest',
       buttonTextAfterCount: 'Skip rest',
       messageOnCountdown: 'Relax a bit',
       messageAfterCountdown: 'Time to work',
-      nextStageOnCount: 'Start',
-      nextStageAfterCount: 'Start',
+      nextStageOnCount: 'start',
+      nextStageAfterCount: 'start',
     };
   }
 }
