@@ -1,80 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
 import Form from './Components/Form';
 import GearButton from './Components/GearButton';
 import classNames from 'classnames';
+import { formatToApresent } from './helpers';
+import { useDrawer, usePomodoro } from './hooks';
 import './index.css';
-import { viewMessages } from './Estate/PomodoroEstates/IPomodoroEstates';
-import { PomodoroStates } from './Estate/PomodoroEstates';
-import { formatToApresent, getLocalStorageItem } from './helpers';
-import { useDrawer } from './hooks/useDrawer.hook';
 
 function App() {
   const { isDrawerOpen, toggleDrawer } = useDrawer();
-
-  const [viewMessages, setViewMessages] = useState<viewMessages>({
-    currentTimer: Number(getLocalStorageItem('focusTime')),
-    buttonTextBeforeCount: 'Start',
-    buttonTextAfterCount: 'Pause',
-    messageOnCountdown: 'Focus',
-    messageAfterCountdown: `Time's up. Rest a little`,
-    nextStage: 'rest',
-    cycle: 1,
-    clickOnCount: 'pause',
-  });
-  const updateViewMessages = (messages: viewMessages) =>
-    setViewMessages(messages);
-
-  const setInitialTimer = () =>
-    setViewMessages({
-      ...viewMessages,
-      currentTimer: Number(getLocalStorageItem('focusTime')),
-    });
-
-  const pomodoroStates = useMemo(
-    () => new PomodoroStates(updateViewMessages),
-    [],
-  );
-
-  const [timer, setTimer] = useState<any>();
-
-  const playTimer = () => {
-    const timerInterval = setInterval(() => {
-      setViewMessages((current) => {
-        if (current.currentTimer === 0) {
-          clearInterval(timerInterval);
-          return { ...current, currentTimer: 0 };
-        }
-
-        return { ...current, currentTimer: current.currentTimer - 1 };
-      });
-    }, 1000);
-
-    setTimer(timerInterval);
-  };
-
-  const handlerPause = () => {
-    clearInterval(timer);
-    setTimer(undefined);
-  };
-
-  const toggleTimer = () => {
-    timer === undefined ? playTimer() : handlerPause();
-  };
-
-  useEffect(() => {
-    if (viewMessages.currentTimer === 0) {
-      pomodoroStates.nextState();
-      console.log(viewMessages.nextStage);
-
-      clearInterval(timer);
-      setTimer(undefined);
-    }
-  }, [
-    viewMessages.currentTimer,
-    pomodoroStates,
-    timer,
-    viewMessages.nextStage,
-  ]);
+  const { setInitialTimer, toggleTimer, timer, viewMessages } = usePomodoro();
 
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">
