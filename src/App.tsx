@@ -16,7 +16,6 @@ function App() {
   const [currentTimer, setCurretTimer] = useState<number>(initialTimer);
   const setInitialTimer = () =>
     setCurretTimer(Number(getLocalStorageItem('focusTime')));
-
   const seconds = currentTimer % 60;
   const minutes = Math.trunc(currentTimer / 60);
 
@@ -34,7 +33,6 @@ function App() {
     () => new PomodoroStates(updateViewMessages),
     [],
   );
-  console.log(pomodoroStates);
 
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">

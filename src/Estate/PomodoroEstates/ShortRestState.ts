@@ -5,15 +5,15 @@ export class ShortRestState implements IPomodoroEstates {
   action: () => void;
 
   constructor() {
+    this.viewMessages = {
+      buttonText: 'skip rest',
+      noticeToUser: 'Relax a bit',
+      stage: 'Rest',
+      messageAfterCountdown: 'Time to work',
+      buttonTextAfterCountdown: 'Start',
+    };
     this.action = () => {
       console.log('teste');
-    };
-    this.viewMessages = {
-      buttonText: '',
-      noticeToUser: '',
-      stage: '',
-      messageAfterCountdown: '',
-      buttonTextAfterCountdown: '',
     };
   }
 }

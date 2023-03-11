@@ -27,4 +27,8 @@ export class PomodoroStates {
     this.currentState = this.selector[state];
     this.updateView(this.currentState.viewMessages);
   };
+
+  // nextState = () => {
+
+  // };
 }
