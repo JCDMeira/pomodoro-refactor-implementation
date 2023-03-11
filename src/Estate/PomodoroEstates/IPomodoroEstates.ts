@@ -1,13 +1,17 @@
+import { statesTypes } from '.';
+
 export interface IPomodoroEstates {
   viewMessages: viewMessages;
-  action: () => void;
+  next: () => void;
 }
 
 export type viewMessages = {
+  currentTimer: number;
   buttonTextBeforeCount: string;
   buttonTextAfterCount: string;
   messageOnCountdown: string;
   messageAfterCountdown: string;
-  nextStageOnCount: string;
-  nextStageAfterCount: string;
+  nextStage: statesTypes;
+  clickOnCount?: statesTypes;
+  cycle?: number;
 };

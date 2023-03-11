@@ -8,25 +8,27 @@ import { PomodoroStates } from './Estate/PomodoroEstates';
 import { formatToApresent, getLocalStorageItem } from './helpers';
 import { useDrawer } from './hooks/useDrawer.hook';
 
-const initialTimer = Number(getLocalStorageItem('focusTime')) || 0;
-
 function App() {
   const { isDrawerOpen, toggleDrawer } = useDrawer();
 
-  const [currentTimer, setCurretTimer] = useState<number>(initialTimer);
-  const setInitialTimer = () =>
-    setCurretTimer(Number(getLocalStorageItem('focusTime')));
-
   const [viewMessages, setViewMessages] = useState<viewMessages>({
+    currentTimer: Number(getLocalStorageItem('focusTime')),
     buttonTextBeforeCount: 'Start',
     buttonTextAfterCount: 'Pause',
     messageOnCountdown: 'Focus',
     messageAfterCountdown: `Time's up. Rest a little`,
-    nextStageOnCount: 'pause',
-    nextStageAfterCount: 'shortRest',
+    nextStage: 'rest',
+    cycle: 1,
+    clickOnCount: 'pause',
   });
   const updateViewMessages = (messages: viewMessages) =>
     setViewMessages(messages);
+
+  const setInitialTimer = () =>
+    setViewMessages({
+      ...viewMessages,
+      currentTimer: Number(getLocalStorageItem('focusTime')),
+    });
 
   const pomodoroStates = useMemo(
     () => new PomodoroStates(updateViewMessages),
@@ -34,25 +36,45 @@ function App() {
   );
 
   const [timer, setTimer] = useState<any>();
+
   const playTimer = () => {
     const timerInterval = setInterval(() => {
-      setCurretTimer((current) => {
-        if (current === 0) {
+      setViewMessages((current) => {
+        if (current.currentTimer === 0) {
           clearInterval(timerInterval);
-          return 0;
+          return { ...current, currentTimer: 0 };
         }
-        return current - 1;
+
+        return { ...current, currentTimer: current.currentTimer - 1 };
       });
     }, 1000);
+
     setTimer(timerInterval);
   };
+
   const handlerPause = () => {
     clearInterval(timer);
     setTimer(undefined);
   };
+
   const toggleTimer = () => {
     timer === undefined ? playTimer() : handlerPause();
   };
+
+  useEffect(() => {
+    if (viewMessages.currentTimer === 0) {
+      pomodoroStates.nextState();
+      console.log(viewMessages.nextStage);
+
+      clearInterval(timer);
+      setTimer(undefined);
+    }
+  }, [
+    viewMessages.currentTimer,
+    pomodoroStates,
+    timer,
+    viewMessages.nextStage,
+  ]);
 
   return (
     <div className="text-gray-300 pt-12 md:pt-4 font-mono h-screen">
@@ -70,7 +92,7 @@ function App() {
           className="fs-4 grow flex justify-center items-center opacity-90"
           id="timer"
         >
-          {`${formatToApresent(currentTimer)}`}
+          {`${formatToApresent(viewMessages.currentTimer)}`}
         </p>
 
         <button
@@ -83,15 +105,24 @@ function App() {
           id="control-button"
           onClick={toggleTimer}
         >
-          {viewMessages.buttonTextBeforeCount}
+          {timer === undefined
+            ? viewMessages.buttonTextBeforeCount
+            : viewMessages.buttonTextAfterCount}
         </button>
 
-        <p className="whitespace-pre-wrap fs-1 font-semibold" id="notice-user">
-          {viewMessages.messageOnCountdown}
-        </p>
+        {
+          <p
+            className="whitespace-pre-wrap fs-1 font-semibold"
+            id="notice-user"
+          >
+            {viewMessages.currentTimer === 0
+              ? viewMessages.messageAfterCountdown
+              : viewMessages.messageOnCountdown}
+          </p>
+        }
 
         <p className="cycles fs-1 font-light" id="cycles">
-          0
+          {viewMessages?.cycle || 1}
         </p>
       </div>
     </div>

@@ -1,20 +1,21 @@
+import { getLocalStorageItem } from '../../helpers';
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
 export class StartState implements IPomodoroEstates {
   viewMessages: viewMessages;
-  action: () => void;
+  next: () => void;
 
   constructor() {
     this.viewMessages = {
+      currentTimer: Number(getLocalStorageItem('focusTime')),
       buttonTextBeforeCount: 'Start',
       buttonTextAfterCount: 'Pause',
       messageOnCountdown: 'Focus',
       messageAfterCountdown: `Time's up. Rest a little`,
-      nextStageOnCount: 'pause',
-      nextStageAfterCount: 'shortRest',
+      nextStage: 'rest',
     };
-    this.action = () => {
-      console.log('teste');
+    this.next = () => {
+      console.log('a');
     };
   }
 }

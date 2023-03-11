@@ -1,19 +1,20 @@
+import { getLocalStorageItem } from '../../helpers';
 import { IPomodoroEstates, viewMessages } from './IPomodoroEstates';
 
 export class ShortRestState implements IPomodoroEstates {
-  action: () => void;
+  next: () => void;
   viewMessages: viewMessages;
 
   constructor() {
     this.viewMessages = {
+      currentTimer: Number(getLocalStorageItem('shortRest')),
       buttonTextBeforeCount: 'Rest',
       buttonTextAfterCount: 'Skip rest',
       messageOnCountdown: 'Relax a bit',
       messageAfterCountdown: 'Time to work',
-      nextStageOnCount: 'start',
-      nextStageAfterCount: 'start',
+      nextStage: 'start',
     };
-    this.action = () => {
+    this.next = () => {
       console.log('teste');
     };
   }
