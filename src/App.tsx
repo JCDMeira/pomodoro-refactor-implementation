@@ -33,16 +33,25 @@ function App() {
     [],
   );
 
+  const [timer, setTimer] = useState<any>();
   const playTimer = () => {
-    const timer = setInterval(() => {
+    const timerInterval = setInterval(() => {
       setCurretTimer((current) => {
         if (current === 0) {
-          clearInterval(timer);
+          clearInterval(timerInterval);
           return 0;
         }
         return current - 1;
       });
     }, 1000);
+    setTimer(timerInterval);
+  };
+  const handlerPause = () => {
+    clearInterval(timer);
+    setTimer(undefined);
+  };
+  const toggleTimer = () => {
+    timer === undefined ? playTimer() : handlerPause();
   };
 
   return (
@@ -72,7 +81,7 @@ function App() {
             'bg-[#ccc] cursor-not-allowed': isDrawerOpen,
           })}
           id="control-button"
-          onClick={playTimer}
+          onClick={toggleTimer}
         >
           {viewMessages.buttonTextBeforeCount}
         </button>
