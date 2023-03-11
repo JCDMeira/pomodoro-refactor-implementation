@@ -9,11 +9,12 @@ export class RestarteState {
       console.log('teste');
     };
     this.viewMessages = {
-      buttonText: '',
-      noticeToUser: '',
-      nextStage: '',
-      messageAfterCountdown: '',
-      buttonTextAfterCountdown: '',
+      buttonTextBeforeCount: 'Restart',
+      buttonTextAfterCount: 'Restart',
+      messageOnCountdown: 'Focus',
+      messageAfterCountdown: `Time's up. Rest a little`,
+      nextStageOnCount: 'Pause',
+      nextStageAfterCount: 'shortRest',
     };
   }
 }

@@ -9,11 +9,12 @@ export class PauseState {
       console.log('teste');
     };
     this.viewMessages = {
-      buttonText: '',
-      noticeToUser: '',
-      nextStage: '',
-      messageAfterCountdown: '',
-      buttonTextAfterCountdown: '',
+      buttonTextBeforeCount: 'Restart',
+      buttonTextAfterCount: 'Restart',
+      messageOnCountdown: 'Paused',
+      messageAfterCountdown: `Paused`,
+      nextStageOnCount: 'Restart',
+      nextStageAfterCount: 'Restart',
     };
   }
 }

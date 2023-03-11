@@ -4,9 +4,10 @@ export interface IPomodoroEstates {
 }
 
 export type viewMessages = {
-  nextStage: string;
-  noticeToUser: string;
-  buttonText: string;
+  buttonTextBeforeCount: string;
+  buttonTextAfterCount: string;
+  messageOnCountdown: string;
   messageAfterCountdown: string;
-  buttonTextAfterCountdown: string;
+  nextStageOnCount: string;
+  nextStageAfterCount: string;
 };

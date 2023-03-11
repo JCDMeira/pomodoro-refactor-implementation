@@ -7,11 +7,12 @@ export class LongRestState {
   constructor() {
     this.action = () => 'a';
     this.viewMessages = {
-      buttonText: '',
-      noticeToUser: '',
-      nextStage: '',
-      messageAfterCountdown: '',
-      buttonTextAfterCountdown: '',
+      buttonTextBeforeCount: 'Rest',
+      buttonTextAfterCount: 'Skip rest',
+      messageOnCountdown: 'Relax a bit',
+      messageAfterCountdown: 'Time to work',
+      nextStageOnCount: 'Start',
+      nextStageAfterCount: 'Start',
     };
   }
 }

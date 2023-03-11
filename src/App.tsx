@@ -17,26 +17,19 @@ function App() {
   const setInitialTimer = () =>
     setCurretTimer(Number(getLocalStorageItem('focusTime')));
 
-  const setNewStageTimer = (key: 'focusTime' | 'shortRest') =>
-    setCurretTimer(Number(getLocalStorageItem(key)));
-
   const seconds = currentTimer % 60;
   const minutes = Math.trunc(currentTimer / 60);
 
   const [viewMessages, setViewMessages] = useState<viewMessages>({
-    buttonText: 'Start',
-    noticeToUser: 'Focus',
-    nextStage: 'Pause',
+    buttonTextBeforeCount: 'Start',
+    buttonTextAfterCount: 'Pause',
+    messageOnCountdown: 'Focus',
     messageAfterCountdown: `Time's up. Rest a little`,
-    buttonTextAfterCountdown: 'shortRest',
+    nextStageOnCount: 'Pause',
+    nextStageAfterCount: 'shortRest',
   });
   const updateViewMessages = (messages: viewMessages) =>
     setViewMessages(messages);
-
-  useEffect(() => {
-    if (viewMessages.buttonText === 'shortRest')
-      setNewStageTimer(viewMessages.buttonText);
-  }, [viewMessages.buttonText]);
 
   const pomodoroStates = useMemo(
     () => new PomodoroStates(updateViewMessages),
@@ -84,11 +77,11 @@ function App() {
           })}
           id="control-button"
         >
-          {viewMessages?.buttonText}
+          {viewMessages.buttonTextBeforeCount}
         </button>
 
         <p className="whitespace-pre-wrap fs-1 font-semibold" id="notice-user">
-          {viewMessages?.noticeToUser}
+          {viewMessages.messageOnCountdown}
         </p>
 
         <p className="cycles fs-1 font-light" id="cycles">
