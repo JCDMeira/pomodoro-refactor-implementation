@@ -9,7 +9,7 @@ export class ShortRestState implements IPomodoroEstates {
     this.viewMessages = {
       currentTimer: Number(getLocalStorageItem('shortRest')),
       buttonTextBeforeCount: 'Rest',
-      buttonTextAfterCount: 'Skip rest',
+      buttonTextAfterCount: 'Resting...',
       messageOnCountdown: 'Relax a bit',
       messageAfterCountdown: 'Time to work',
       nextStage: 'start',

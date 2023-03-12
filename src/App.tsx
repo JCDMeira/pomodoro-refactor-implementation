@@ -33,7 +33,10 @@ function App() {
           className={classNames({
             'w-2/3 max-w-xl py-1 fs-2 lg:py-4 rounded-full uppercase': true,
             'bg-[#602020] cursor-pointer': !isDrawerOpen,
-            'bg-[#ccc] cursor-not-allowed': isDrawerOpen,
+            'bg-[#999] cursor-not-allowed':
+              isDrawerOpen ||
+              (viewMessages.buttonTextAfterCount === 'Resting...' &&
+                timer !== undefined),
           })}
           id="control-button"
           onClick={toggleTimer}
